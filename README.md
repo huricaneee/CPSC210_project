@@ -13,3 +13,15 @@ a schedule** for it. I am the beginners of fitness, and want to make it
 systemic and scientific. Hence, I design this system.
 
 
+## User Stories
+
+- As a user, I want to be able to add new kinds of fitness moves
+to my list of moves.
+- As a user, I want to be able to see the names, functions, and the
+pictures I added to the list.
+- As a user, I want to be able to add the fitness moves to the time interval
+I want in a calendar.
+- As a user, I want to be able to see the calendar with graphical interface.
+- As a user, I want to be able to record the time of fitness I take each time.
+- As a user, I want to be able to see the statistics of how frequently
+each move is played.
