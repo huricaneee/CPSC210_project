@@ -26,7 +26,7 @@ public class MovementList {
     }
 
     public FitnessMovement getMovement(int index) {
-        return getMovement(index);
+        return movementList.get(index);
     }
 
     public List<FitnessMovement> getMovementList() {

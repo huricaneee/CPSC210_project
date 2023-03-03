@@ -111,6 +111,7 @@ public class FitnessSystem {
         index = Integer.parseInt(input.next());
         FitnessMovement f = movementList.getMovement(index);
         HourSchedule h = new HourSchedule(day,month,f);
+        timeSchedule.addSchedule(h);
     }
 
 
