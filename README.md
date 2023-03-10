@@ -25,3 +25,7 @@ I want in a calendar.
 - As a user, I want to be able to record the time of fitness I take each time.
 - As a user, I want to be able to see the statistics of how frequently
 each move is played.
+- As a user, I want to reload the movement list and the time schedule 
+I stored last time
+- As a user, I want to upload the changes I made in the movement list and the 
+time schedule
