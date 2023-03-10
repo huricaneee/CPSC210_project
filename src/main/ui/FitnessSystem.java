@@ -60,8 +60,8 @@ public class FitnessSystem {
         int i = 0;
         list = movementList.getMovementList();
         for (FitnessMovement e: list) {
-            System.out.println("\t" + i + ". " + e.getName());
-            System.out.println("\t" + i + ". " + e.getFunctions());
+            System.out.println("\t" + i + ". " +  "name: " + e.getName());
+            System.out.println("\t" + i + ". " + "function: " + e.getFunctions());
             i++;
 
         }
@@ -117,10 +117,10 @@ public class FitnessSystem {
 
     private void choose() {
         System.out.println("\nSelect from:");
-        System.out.println("\ts -> see TimeSchedule");
-        System.out.println("\te -> add movement to TimeSchedule");
-        System.out.println("\tS -> see MovementList");
-        System.out.println("\tE ->  add movement to MovementList");
+        System.out.println("\ts -> see MovementList");
+        System.out.println("\te -> add movement to MovementList");
+        System.out.println("\tS -> see TimeSchedule");
+        System.out.println("\tE -> add movement to TimeSchedule");
         System.out.println("\tq -> quit");
     }
 }
