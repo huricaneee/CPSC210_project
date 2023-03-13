@@ -14,6 +14,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * FitnessSystem application
+ */
 public class FitnessSystem {
     private MovementList movementList;
     private TimeSchedule timeSchedule;
@@ -25,10 +28,13 @@ public class FitnessSystem {
     private JsonWriter jsonWriterOfHourSchedule;
     private JsonReader jsonReaderOfHourSchedule;
 
+    // EFFECTS: runs the Fitness System
     public FitnessSystem() {
         runSystem();
     }
 
+    // MODIFIES: this
+    // EFFECTS: process the user input
     private void runSystem() {
         boolean runSystem = true;
         String order = null;
@@ -54,7 +60,7 @@ public class FitnessSystem {
 
     }
 
-
+    // EFFECTS: process user command
     public void workOnOrder(String order) {
         if (order.equals("s")) {
             seeMovementList();
@@ -77,6 +83,8 @@ public class FitnessSystem {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: write the current schedule to the file
     public void saveHourSchedule() {
         try {
             jsonWriterOfHourSchedule.open();
@@ -88,6 +96,8 @@ public class FitnessSystem {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: load the previous state of TimeSchedule last time the user leave
     public void loadHourSchedule() {
         try {
             timeSchedule = jsonReaderOfHourSchedule.read1();
@@ -97,6 +107,8 @@ public class FitnessSystem {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: write the current MovementList to the file
     public void saveMovementList() {
         try {
             jsonWriterOfMovementList.open();
@@ -108,6 +120,8 @@ public class FitnessSystem {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: load the previous state of MovementList last time the user leave
     public void loadMovementList() {
         try {
             movementList = jsonReaderOfMovementList.read();
@@ -118,7 +132,7 @@ public class FitnessSystem {
     }
 
 
-
+    // EFFECTS: print the movementList
     public void seeMovementList() {
         List<FitnessMovement> list = new ArrayList<FitnessMovement>();
         int i = 0;
@@ -131,6 +145,7 @@ public class FitnessSystem {
         }
     }
 
+    // EFFECTS: add new movement to the MovementList
     public void addToMovementList() {
         String name = null;
         String function = null;
@@ -148,6 +163,7 @@ public class FitnessSystem {
         movementList.addMovement(f);
     }
 
+    // EFFECTS: print the TimeSchedule
     public void seeTimeSchedule() {
         LinkedList<HourSchedule> schedules;
         int i = 0;
@@ -161,6 +177,7 @@ public class FitnessSystem {
         }
     }
 
+    // EFFECTS: add new movement to the TimeSchedule
     public void addToTimeSchedule() {
         int month;
         int day;
@@ -179,6 +196,7 @@ public class FitnessSystem {
     }
 
 
+    // EFFECTS: display the menu
     private void choose() {
         System.out.println("\nSelect from:");
         System.out.println("\ts -> see MovementList");

@@ -11,6 +11,10 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * writer to write MovementList and HourSchedule in to file
+ * based on the JSOnSerializationDemo
+ */
 public class JsonWriterTest {
 
     @Test

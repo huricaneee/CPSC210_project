@@ -13,9 +13,15 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+/**
+ * represent a reader to read MovementList and TimeSchedule in the stored file
+ * based on the JsonSerializationDemo
+ */
+
 public class JsonReader {
     private String source;
 
+    // EFFECTS: construct a reader with given source
     public JsonReader(String source) {
         this.source = source;
     }
@@ -28,12 +34,15 @@ public class JsonReader {
         return readAsMovementList(jsonObject);
     }
 
+    // EFFECTS: read source file as TimeSchedule and return it
+    // throws IOException if an error occurs reading data from file
     public TimeSchedule read1() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
         return readAsTimeSchedule(jsonObject);
     }
 
+    // EFFECTS: read source file as string and return it
     public String readFile(String source) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
         Stream<String> stream = Files.lines(Paths.get(source), StandardCharsets.UTF_8);
@@ -42,7 +51,7 @@ public class JsonReader {
 
     }
 
-
+    //EFFECTS: parse given JSONObject to a MovementList and return it
     public MovementList readAsMovementList(JSONObject object) {
         MovementList ml = new MovementList();
         JSONArray jsonArray = object.getJSONArray("MovementList");
@@ -53,6 +62,8 @@ public class JsonReader {
         return ml;
     }
 
+    // EFFECTS: parse given JSonObject into a Movement and add it into given time MovementList
+    // MODIFIES: ml
     public void addMovement(MovementList ml, JSONObject object) {
         String name = object.getString("name");
         String functions = object.getString("functions");
@@ -62,6 +73,7 @@ public class JsonReader {
         ml.addMovement(movement);
     }
 
+    //EFFECTS: parse given JSONObject to a TimeSchedule and return it
     public TimeSchedule readAsTimeSchedule(JSONObject object) {
         TimeSchedule ts = new TimeSchedule();
         JSONArray jsonArray = object.getJSONArray("TimeSchedule");
@@ -72,6 +84,8 @@ public class JsonReader {
         return ts;
     }
 
+    // EFFECTS: parse given JSonObject into a hourSchedule and add it into given time schedule
+    // MODIFIES: ts
     public void addHourSchedule(TimeSchedule ts, JSONObject object) {
         int day = object.getInt("day");
         int month = object.getInt("month");

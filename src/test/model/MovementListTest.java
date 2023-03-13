@@ -14,14 +14,18 @@ public class MovementListTest {
     }
     @Test
     public void testConstructor() {
-        assertEquals(2,m.getMovementList().size());
+        assertEquals(0,m.getMovementList().size());
 
     }
 
     @Test
     public void testAddMovement() {
         assertTrue(m.addMovement(f));
-        assertEquals(3,m.getMovementList().size());
+        assertEquals(1,m.getMovementList().size());
+        for(int i=0; i<9;i++){
+            assertTrue(m.addMovement(f));
+        }
+        assertFalse(m.addMovement(f));
     }
 
 }
