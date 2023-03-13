@@ -4,7 +4,11 @@ import model.FitnessMovement;
 import model.HourSchedule;
 import model.MovementList;
 import model.TimeSchedule;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,6 +18,12 @@ public class FitnessSystem {
     private MovementList movementList;
     private TimeSchedule timeSchedule;
     private Scanner input;
+    private static final String pathOfMovementList = "./data/myFile.json";
+    private static final String pathOfHourSchedule = "./data/HourSchedule.json";
+    private JsonWriter jsonWriterOfMovementList;
+    private JsonReader jsonReaderOfMovementList;
+    private JsonWriter jsonWriterOfHourSchedule;
+    private JsonReader jsonReaderOfHourSchedule;
 
     public FitnessSystem() {
         runSystem();
@@ -26,6 +36,10 @@ public class FitnessSystem {
         timeSchedule = new TimeSchedule();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
+        jsonWriterOfMovementList = new JsonWriter(pathOfMovementList);
+        jsonReaderOfMovementList = new JsonReader(pathOfMovementList);
+        jsonReaderOfHourSchedule = new JsonReader(pathOfHourSchedule);
+        jsonWriterOfHourSchedule = new JsonWriter(pathOfHourSchedule);
 
         while (runSystem) {
             choose();
@@ -50,10 +64,60 @@ public class FitnessSystem {
             seeTimeSchedule();
         } else if (order.equals("E")) {
             addToTimeSchedule();
+        } else if (order.equals("A")) {
+            saveMovementList();
+        } else if (order.equals("B")) {
+            loadMovementList();
+        } else if (order.equals("C")) {
+            saveHourSchedule();
+        } else if (order.equals("D")) {
+            loadHourSchedule();
         } else {
             System.out.println("Selection not valid...");
         }
     }
+
+    public void saveHourSchedule() {
+        try {
+            jsonWriterOfHourSchedule.open();
+            jsonWriterOfHourSchedule.writeTimeSchedule(timeSchedule);
+            jsonWriterOfHourSchedule.close();
+            System.out.println("Saved");
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + pathOfHourSchedule);
+        }
+    }
+
+    public void loadHourSchedule() {
+        try {
+            timeSchedule = jsonReaderOfHourSchedule.read1();
+            System.out.println("Loaded ");
+        } catch (IOException e) {
+            System.out.println("Unable to read from file");
+        }
+    }
+
+    public void saveMovementList() {
+        try {
+            jsonWriterOfMovementList.open();
+            jsonWriterOfMovementList.writeMovementList(movementList);
+            jsonWriterOfMovementList.close();
+            System.out.println("Saved");
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + pathOfMovementList);
+        }
+    }
+
+    public void loadMovementList() {
+        try {
+            movementList = jsonReaderOfMovementList.read();
+            System.out.println("Loaded ");
+        } catch (IOException e) {
+            System.out.println("Unable to read from file");
+        }
+    }
+
+
 
     public void seeMovementList() {
         List<FitnessMovement> list = new ArrayList<FitnessMovement>();
@@ -120,7 +184,11 @@ public class FitnessSystem {
         System.out.println("\ts -> see MovementList");
         System.out.println("\te -> add movement to MovementList");
         System.out.println("\tS -> see TimeSchedule");
-        System.out.println("\tE -> add movement to TimeSchedule");
+        System.out.println("\tE -> add HourSchedule to TimeSchedule");
+        System.out.println("\tA -> save MovementList");
+        System.out.println("\tB -> Load MovementList");
+        System.out.println("\tC -> save TimeSchedule");
+        System.out.println("\tD -> Load TimeSchedule");
         System.out.println("\tq -> quit");
     }
 }

@@ -1,10 +1,13 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 /**
  * FitnessMovement class represent a kind of fitness movement that can be added into the to-do list. FitnessMovements
  * should have names, function descriptions, and pictures.
  */
-public class FitnessMovement {
+public class FitnessMovement implements Writable {
     private static int number = 0;
     private String name;
     private String functions;
@@ -36,15 +39,16 @@ public class FitnessMovement {
         return time;
     }
 
-    public void setFunctions(String functions) {
-        this.functions = functions;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
+    // EFFECTS: return this as jsonObject
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("functions", functions);
+        json.put("picture", picture);
+        json.put("time", time);
+        return json;
     }
 }

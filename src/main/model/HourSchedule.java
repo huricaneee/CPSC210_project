@@ -1,9 +1,12 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 /**
  * HourSchedule represent that a schedule at a specific time to do a fitness movement
  */
-public class HourSchedule {
+public class HourSchedule implements Writable {
     private int day;
     private int month;
     private FitnessMovement movement;
@@ -26,5 +29,15 @@ public class HourSchedule {
 
     public FitnessMovement getMovement() {
         return movement;
+    }
+
+    // EFFECTS: return this as jsonObject
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("day", day);
+        json.put("month", month);
+        json.put("movement", movement.toJson());
+        return json;
     }
 }

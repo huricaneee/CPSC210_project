@@ -1,22 +1,23 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * MovementList is a list to store all the fitness movements that are available to do
  */
-public class MovementList {
+public class MovementList implements Writable {
     private List<FitnessMovement> movementList;
     public static final int MAX_SIZE = 10;
 
     // EFFECTS: create a movement list that can store the movements
     public MovementList() {
         movementList = new ArrayList<FitnessMovement>();
-        FitnessMovement movement1 = new FitnessMovement("sit-ups","...","...",0);
-        FitnessMovement movement2 = new FitnessMovement("squat","...","...",0);
-        movementList.add(movement1);
-        movementList.add(movement2);
+
     }
 
     // MODIFIES: this
@@ -37,5 +38,23 @@ public class MovementList {
 
     public List<FitnessMovement> getMovementList() {
         return movementList;
+    }
+
+    // EFFECTS: returns movementList as a JSON array
+    public JSONArray movementsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (FitnessMovement t : movementList) {
+            jsonArray.put(t.toJson());
+        }
+
+        return jsonArray;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("MovementList", movementsToJson());
+        return json;
     }
 }
