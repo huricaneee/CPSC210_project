@@ -7,6 +7,9 @@ import model.TimeSchedule;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,7 +20,7 @@ import java.util.Scanner;
 /**
  * FitnessSystem application
  */
-public class FitnessSystem {
+public class FitnessSystem extends JFrame {
     private MovementList movementList;
     private TimeSchedule timeSchedule;
     private Scanner input;
@@ -27,25 +30,116 @@ public class FitnessSystem {
     private JsonReader jsonReaderOfMovementList;
     private JsonWriter jsonWriterOfHourSchedule;
     private JsonReader jsonReaderOfHourSchedule;
+    private JPanel contentPane;
+    private JMenuItem item11 = new JMenuItem("Load FitnessMovementList");
+    private JMenuItem item12 = new JMenuItem("Load TimeSchedule");
+    private JMenuItem item21 = new JMenuItem("Save FitnessMovementList");
+    private JMenuItem item22 = new JMenuItem("Save TimeSchedule");
+    private JMenuItem item31 = new JMenuItem("See FitnessMovementList");
+    private JMenuItem item32 = new JMenuItem("See TimeSchedule");
+    private JMenuItem item41 = new JMenuItem("Add FitnessMovementList");
+    private JMenuItem item42 = new JMenuItem("Add TimeSchedule");
+    PanelSeeFitnessMovementList p1;
 
     // EFFECTS: runs the Fitness System
     public FitnessSystem() {
+        super("Fitness System");
+        init();
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setUndecorated(false);
+        setBounds(100, 100, 450, 300);
+
+
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
+        setVisible(true);
+
+        addMenu();
+
+        JPanel panel = new JPanel();
+        panel.setBounds(60, 10, 300, 200);
+        contentPane.add(panel);
+        CardLayout cardLayout = new CardLayout();
+        panel.setLayout(cardLayout);
+
+        p1 = new PanelSeeFitnessMovementList(movementList.getMovementList());
+        panel.add(p1,"p1");
+        cardLayout.show(panel,"p1");
+
+        // Panel:see movementList
+
+        item31.addActionListener(e -> {
+            p1 = new PanelSeeFitnessMovementList(movementList.getMovementList());
+            panel.add(p1,"p1");
+            cardLayout.show(panel,"p1");
+            seeMovementList();
+        });
+
         runSystem();
+
+    }
+
+    @SuppressWarnings("methodlength")
+    private void addMenu() {
+        JMenuBar menuBar = new JMenuBar();
+        this.setJMenuBar(menuBar);
+        JMenu menu1 = new JMenu("Load");
+        JMenu menu2 = new JMenu("Save");
+        JMenu menu3 = new JMenu("See");
+        JMenu menu4 = new JMenu("Add");
+
+        menuBar.add(menu1);
+        menuBar.add(menu2);
+        menuBar.add(menu3);
+        menuBar.add(menu4);
+        menu1.add(item11);
+        menu1.add(item12);
+        menu2.add(item21);
+        menu2.add(item22);
+        menu3.add(item31);
+        menu3.add(item32);
+        menu4.add(item41);
+        menu4.add(item42);
+
+        item11.addActionListener(e -> {
+            loadMovementList();
+        });
+        item12.addActionListener(e -> {
+            loadHourSchedule();
+        });
+        item21.addActionListener(e -> {
+            saveMovementList();
+        });
+        item22.addActionListener(e -> {
+            saveHourSchedule();
+        });
+
+    }
+
+    private void init() {
+        movementList = new MovementList();
+        timeSchedule = new TimeSchedule();
+        jsonWriterOfMovementList = new JsonWriter(pathOfMovementList);
+        jsonReaderOfMovementList = new JsonReader(pathOfMovementList);
+        jsonReaderOfHourSchedule = new JsonReader(pathOfHourSchedule);
+        jsonWriterOfHourSchedule = new JsonWriter(pathOfHourSchedule);
     }
 
     // MODIFIES: this
     // EFFECTS: process the user input
     private void runSystem() {
+
+
+
         boolean runSystem = true;
         String order = null;
-        movementList = new MovementList();
-        timeSchedule = new TimeSchedule();
+
         input = new Scanner(System.in);
         input.useDelimiter("\n");
-        jsonWriterOfMovementList = new JsonWriter(pathOfMovementList);
-        jsonReaderOfMovementList = new JsonReader(pathOfMovementList);
-        jsonReaderOfHourSchedule = new JsonReader(pathOfHourSchedule);
-        jsonWriterOfHourSchedule = new JsonWriter(pathOfHourSchedule);
+
 
         while (runSystem) {
             choose();
