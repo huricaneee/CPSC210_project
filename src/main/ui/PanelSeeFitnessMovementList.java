@@ -4,41 +4,67 @@ import model.FitnessMovement;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PanelSeeFitnessMovementList extends JPanel {
     private List<FitnessMovement> list;
-    private JTextArea jtextArea;
-    private String listString = "";
+    JComboBox comboBox;
+    JLabel jtaName = new JLabel();
+    JLabel jtaFunction = new JLabel();
+    ImageIcon ic;
+    JLabel jl2 = new JLabel();
 
+    /**Provide the panel of the function of see MovementList*/
 
+    // EFFECT: Put Swing Component on panel and add actionEvent of ComboBox
+    @SuppressWarnings("methodlength")
     public PanelSeeFitnessMovementList(List<FitnessMovement> list) {
         this.list = list;
         setLayout(null);
 
-        int i = 0;
-        for (FitnessMovement e: list) {
-            listString = listString + i + ". " +  "name: " + e.getName() + "\n" + i + ". "
-                    + "function: " + e.getFunctions() + "\n";
+        jl2.setBounds(150,0,100,100);
 
-            i++;
+        comboBox = new JComboBox();
+        comboBox.setBounds(10, 10, 100, 21);
 
-
+        if (!list.isEmpty()) {
+            for (FitnessMovement f : list) {
+                comboBox.addItem(f);
+            }
         }
-        jtextArea = new JTextArea(listString);//创建文本域
-        jtextArea.setLineWrap(true);//设置文本域自动换行
-        jtextArea.setBounds(60, 10, 300, 200);//设置文本域大小
-        add(jtextArea);//将文本域加入到窗口
+
+
+        this.add(comboBox);
+
+        comboBox.addItemListener(new ItemListener() { // 给下拉框添加一个点击监听器
+            public void itemStateChanged(ItemEvent e) { // 下拉框被选择
+                FitnessMovement movement = (FitnessMovement) comboBox.getSelectedItem();
+                jtaName.setText("name: " + ((FitnessMovement) comboBox.getSelectedItem()).getName());
+                //jtaName.setLineWrap(true);//设置文本域自动换行
+                jtaName.setBounds(20, 40, 100, 50);//设置文本域大小
+                add(jtaName);//将文本域加入到窗口
+                jtaFunction.setText("Function: " + movement.getFunctions());
+                jtaFunction.setBounds(20,70,100,50);
+                add(jtaFunction);
+                ic = new ImageIcon(((FitnessMovement) comboBox.getSelectedItem()).getPicture());
+                //ic = new ImageIcon("./data/tobs.jpg");
+                ic.setImage(ic.getImage().getScaledInstance(100,100,Image.SCALE_AREA_AVERAGING));
+                jl2.setIcon(ic);
+                add(jl2);
+
+            }
+
+        });
+
+
+
+
+
+
 
     }
-
-
-
-
-
-
-
-
 }
 

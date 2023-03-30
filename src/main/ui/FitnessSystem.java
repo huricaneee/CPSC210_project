@@ -40,7 +40,11 @@ public class FitnessSystem extends JFrame {
     private JMenuItem item41 = new JMenuItem("Add FitnessMovementList");
     private JMenuItem item42 = new JMenuItem("Add TimeSchedule");
     PanelSeeFitnessMovementList p1;
+    PanelAddFitnessMovement p3;
+    PanelSeeTimeSchedule p2;
+    PanelAddHourSchedule p4;
 
+    @SuppressWarnings("methodlength")
     // EFFECTS: runs the Fitness System
     public FitnessSystem() {
         super("Fitness System");
@@ -60,14 +64,23 @@ public class FitnessSystem extends JFrame {
         addMenu();
 
         JPanel panel = new JPanel();
-        panel.setBounds(60, 10, 300, 200);
+        panel.setBounds(100, 100, 450, 300);
         contentPane.add(panel);
         CardLayout cardLayout = new CardLayout();
         panel.setLayout(cardLayout);
 
         p1 = new PanelSeeFitnessMovementList(movementList.getMovementList());
         panel.add(p1,"p1");
-        cardLayout.show(panel,"p1");
+        //cardLayout.show(panel,"p1");
+
+        p2 = new PanelSeeTimeSchedule(timeSchedule.getSchedules());
+        panel.add(p2,"p2");
+
+        p3 = new PanelAddFitnessMovement(movementList.getMovementList());
+        panel.add(p3,"p3");
+
+        p4 = new PanelAddHourSchedule(movementList,timeSchedule);
+        panel.add(p4,"p4");
 
         // Panel:see movementList
 
@@ -78,10 +91,45 @@ public class FitnessSystem extends JFrame {
             seeMovementList();
         });
 
+        item32.addActionListener(e -> {
+            p2 = new PanelSeeTimeSchedule(timeSchedule.getSchedules());
+            panel.add(p2,"p2");
+            cardLayout.show(panel,"p2");
+            //seeMovementList();
+        });
+
+        item21.addActionListener(e -> {
+            saveMovementList();
+        });
+
+        item22.addActionListener(e -> {
+            saveHourSchedule();
+        });
+
+        item41.addActionListener(e -> {
+            p3 = new PanelAddFitnessMovement(movementList.getMovementList());
+            panel.add(p3,"p3");
+            cardLayout.show(panel,"p3");
+            //seeMovementList();
+        });
+
+        item42.addActionListener(e -> {
+            p4 = new PanelAddHourSchedule(movementList,timeSchedule);
+            panel.add(p4,"p4");
+            cardLayout.show(panel,"p4");
+            //seeMovementList();
+        });
+
+
+
+
+
+
         runSystem();
 
     }
 
+    // EFFECT: initial the menuBar
     @SuppressWarnings("methodlength")
     private void addMenu() {
         JMenuBar menuBar = new JMenuBar();
@@ -119,6 +167,7 @@ public class FitnessSystem extends JFrame {
 
     }
 
+    //EFFECT: initial the fields
     private void init() {
         movementList = new MovementList();
         timeSchedule = new TimeSchedule();

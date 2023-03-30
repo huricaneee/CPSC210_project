@@ -51,4 +51,23 @@ public class FitnessMovement implements Writable {
         json.put("time", time);
         return json;
     }
+
+    @Override
+    public String toString() {
+
+        return name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj == null) {
+            return false;
+        }
+        FitnessMovement building = (FitnessMovement) obj;
+        if (this.name.equals(building.getName())) {
+            return true;
+        }
+        return false;
+    }
 }
