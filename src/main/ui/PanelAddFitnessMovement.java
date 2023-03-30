@@ -16,8 +16,8 @@ public class PanelAddFitnessMovement extends JPanel {
 
     /**Provide the panel of the function of adding TimeSchedule*/
 
-    // EFFECT: Put Swing Component on panel and add actionEvent of the button to update
-
+    // MODIFIES: this, list
+    // EFFECTS: Put Swing Component on panel and add actionEvent of the button to update list
     @SuppressWarnings("methodlength")
     public PanelAddFitnessMovement(List<FitnessMovement> list) {
         JButton inputButton = new JButton("Update");

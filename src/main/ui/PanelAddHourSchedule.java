@@ -19,7 +19,8 @@ public class PanelAddHourSchedule extends JPanel {
 
     /**Provide the panel of the function of adding MovementList*/
 
-    // EFFECT: Put Swing Component on panel and add actionEvent of the button to update
+    // MODIFIES : this, movementList, timeSchedule
+    // EFFECTS: Put Swing Component on panel and add actionEvent of the button to update movementList, timeSchedule
     @SuppressWarnings("methodlength")
     public PanelAddHourSchedule(MovementList movementList, TimeSchedule timeSchedule) {
         JButton inputButton = new JButton("Update");
