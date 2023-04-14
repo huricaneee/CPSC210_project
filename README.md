@@ -45,9 +45,24 @@ FitnessMovements (HourSchedule)
 The two events I added logEvent are: 
 1. add Movement to the MovementList
 2. add HourSchedule to the TimeSchedule
+   (other actions of this System is like view Xs of Y, which is implemented in the ui package)
 - a representative events example:
 - Thu Apr 13 19:31:21 PDT 2023 
    a new movement added
 - Thu Apr 13 19:31:37 PDT 2023 a new HourSchedule added
 - Thu Apr 13 19:31:46 PDT 2023 a new HourSchedule added
 - Thu Apr 13 19:32:06 PDT 2023 a new movement added
+
+## Phase 4: Task 3
+
+The application can not handle the situation that when users add Movement, type not Integer
+type content to the text field of the time of the movement. The PanelAddFitnessMovement should
+throw out the exception when the input is in a wrong type to the fitnessSystem. The fitnessSystem
+should tell users type again based on the exception. This prevents the application dies whenever
+users types wrong inputs.
+
+The page of adding can add hourSchedule whose movement doesn't exist in the movementList. But after adding
+the hourSchedule, the movementList will not update the new movement. Since in PanelAddHourSchedule, movementList is 
+passed as parameter. When the input of the name of the movement is not found in the movementList. PanelAddHourSchedule 
+should throw out an exception to fitness System and tell the user to add a new movement with
+that name. This prevents data in the movementList inconsistent with the TimeSchedule.
