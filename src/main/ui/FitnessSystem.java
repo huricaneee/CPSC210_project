@@ -1,26 +1,24 @@
 package ui;
 
-import model.FitnessMovement;
-import model.HourSchedule;
-import model.MovementList;
-import model.TimeSchedule;
+import model.*;
+import model.Event;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * FitnessSystem application
  */
-public class FitnessSystem extends JFrame {
+public class FitnessSystem extends JFrame implements WindowListener {
     private MovementList movementList;
     private TimeSchedule timeSchedule;
     private Scanner input;
@@ -53,7 +51,7 @@ public class FitnessSystem extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(false);
         setBounds(100, 100, 450, 300);
-
+        addWindowListener(this);
 
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -73,10 +71,10 @@ public class FitnessSystem extends JFrame {
         panel.add(p1,"p1");
         //cardLayout.show(panel,"p1");
 
-        p2 = new PanelSeeTimeSchedule(timeSchedule.getSchedules());
+        p2 = new PanelSeeTimeSchedule(timeSchedule);
         panel.add(p2,"p2");
 
-        p3 = new PanelAddFitnessMovement(movementList.getMovementList());
+        p3 = new PanelAddFitnessMovement(movementList);
         panel.add(p3,"p3");
 
         p4 = new PanelAddHourSchedule(movementList,timeSchedule);
@@ -92,7 +90,7 @@ public class FitnessSystem extends JFrame {
         });
 
         item32.addActionListener(e -> {
-            p2 = new PanelSeeTimeSchedule(timeSchedule.getSchedules());
+            p2 = new PanelSeeTimeSchedule(timeSchedule);
             panel.add(p2,"p2");
             cardLayout.show(panel,"p2");
             //seeMovementList();
@@ -107,7 +105,7 @@ public class FitnessSystem extends JFrame {
         });
 
         item41.addActionListener(e -> {
-            p3 = new PanelAddFitnessMovement(movementList.getMovementList());
+            p3 = new PanelAddFitnessMovement(movementList);
             panel.add(p3,"p3");
             cardLayout.show(panel,"p3");
             //seeMovementList();
@@ -351,5 +349,45 @@ public class FitnessSystem extends JFrame {
         System.out.println("\tC -> save TimeSchedule");
         System.out.println("\tD -> Load TimeSchedule");
         System.out.println("\tq -> quit");
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        Iterator<Event> it = EventLog.getInstance().iterator();
+        while (it.hasNext()) {
+            Event event = it.next();
+            System.out.println(event.toString());
+        }
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+
+
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+
     }
 }

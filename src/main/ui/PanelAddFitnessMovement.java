@@ -1,6 +1,7 @@
 package ui;
 
 import model.FitnessMovement;
+import model.MovementList;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +20,7 @@ public class PanelAddFitnessMovement extends JPanel {
     // MODIFIES: this, list
     // EFFECTS: Put Swing Component on panel and add actionEvent of the button to update list
     @SuppressWarnings("methodlength")
-    public PanelAddFitnessMovement(List<FitnessMovement> list) {
+    public PanelAddFitnessMovement(MovementList movementList) {
         JButton inputButton = new JButton("Update");
         setLayout(null);
         JTextField inputName = new JTextField("name");
@@ -53,7 +54,8 @@ public class PanelAddFitnessMovement extends JPanel {
                 picture = inputPicture.getText();
                 time = Integer.parseInt(inputTime.getText());
                 FitnessMovement f = new FitnessMovement(name,function,picture,time);
-                list.add(f);
+                movementList.addToMovement(f);
+
 
 
 

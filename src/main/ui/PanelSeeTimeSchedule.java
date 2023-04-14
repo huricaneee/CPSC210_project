@@ -2,6 +2,7 @@ package ui;
 
 import model.FitnessMovement;
 import model.HourSchedule;
+import model.TimeSchedule;
 
 import javax.swing.*;
 import java.util.List;
@@ -14,8 +15,8 @@ public class PanelSeeTimeSchedule extends JPanel {
     /**Provide the panel of the function of see HourSchedule*/
 
     // EFFECT: Put Swing Component on panel
-    public PanelSeeTimeSchedule(List<HourSchedule> list) {
-        this.list = list;
+    public PanelSeeTimeSchedule(TimeSchedule timeSchedule) {
+        this.list = timeSchedule.getSchedules();
         setLayout(null);
         jtextArea.setLineWrap(true);//设置文本域自动换行
         jtextArea.setBounds(10, 10, 200, 100);//设置文本域大小

@@ -60,7 +60,7 @@ public class PanelAddHourSchedule extends JPanel {
                 }
 
                 HourSchedule h = new HourSchedule(day,month,ff);
-                timeSchedule.addSchedule(h);
+                timeSchedule.addToSchedule(h);
 
 
 

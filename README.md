@@ -40,3 +40,14 @@ FitnessMovements (HourSchedule)
 - You can locate my visual component by clicking the item of comboBox to see the pictures of movements
 - You can save the state of my application by clicking the "Save" Menu
 - You can reload the state of my application by clicking the "Load" Menu
+
+## Phase 4: Task 2
+The two events I added logEvent are: 
+1. add Movement to the MovementList
+2. add HourSchedule to the TimeSchedule
+- a representative events example:
+- Thu Apr 13 19:31:21 PDT 2023 
+   a new movement added
+- Thu Apr 13 19:31:37 PDT 2023 a new HourSchedule added
+- Thu Apr 13 19:31:46 PDT 2023 a new HourSchedule added
+- Thu Apr 13 19:32:06 PDT 2023 a new movement added

@@ -6,6 +6,8 @@ import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.List;
+import model.EventLog;
+import model.Event;
 
 /**
  * MovementList is a list to store all the fitness movements that are available to do
@@ -30,6 +32,24 @@ public class MovementList implements Writable {
             movementList.add(f);
             return true;
         }
+
+
+    }
+
+    // MODIFIES: this
+    // EFFECTS: add the given movement to the movement list
+    public boolean addToMovement(FitnessMovement f) {
+
+        if (movementList.size() == MAX_SIZE) {
+            EventLog.getInstance().logEvent(new Event("the movement can't be added because the list if full"));
+            return false;
+        } else {
+            movementList.add(f);
+            EventLog.getInstance().logEvent(new Event("a new movement added"));
+            return true;
+        }
+
+
     }
 
     public FitnessMovement getMovement(int index) {

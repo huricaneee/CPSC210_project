@@ -24,6 +24,12 @@ public class TimeSchedule implements Writable {
         schedules.add(h);
     }
 
+    // EFFECTS: add the given HourSchedule to the given TimeSchedule
+    public void addToSchedule(HourSchedule h) {
+        schedules.add(h);
+        EventLog.getInstance().logEvent(new Event("a new HourSchedule added"));
+    }
+
     public LinkedList<HourSchedule> getSchedules() {
         return schedules;
     }
